@@ -1,0 +1,58 @@
+﻿<UserControl x:Class="AdminClientApp.Views.Essential.SystemInfoView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"  
+             xmlns:local="clr-namespace:AdminClientApp.Views.Essential"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Grid VerticalAlignment="Top" HorizontalAlignment="Left" Margin="30">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="30"/>
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="auto"/>
+            <ColumnDefinition Width="30"/>
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+
+        <Label Content="Computer name" Grid.Row="0" HorizontalAlignment="Right" FontWeight="Bold"/>
+        <Label Content="{Binding ComputerName}" Grid.Row="0" Grid.Column="2"/>
+
+        <Label Content="Processor" Grid.Row="1" HorizontalAlignment="Right" FontWeight="Bold"/>
+        <Label Content="{Binding HardwareProcessor}" Grid.Row="1" Grid.Column="2"/>
+
+        <Label Content="RAM" Grid.Row="2" HorizontalAlignment="Right" FontWeight="Bold"/>
+        <Label Content="{Binding HardwareRAM}" Grid.Row="2" Grid.Column="2"/>
+
+        <Label Content="Motherboard" Grid.Row="3" HorizontalAlignment="Right" FontWeight="Bold"/>
+        <Label Content="{Binding HardwareMotherboard}" Grid.Row="3" Grid.Column="2"/>
+
+        <Label Content="GPU1" Grid.Row="4" HorizontalAlignment="Right" FontWeight="Bold"/>
+        <DockPanel Grid.Row="4" Grid.Column="2">
+            <Label Content="{Binding HardwareGPU1Name}" />
+            <Label Content="{Binding HardwareGPU1MemoryMB}" ContentStringFormat="{}{0}MB"/>
+            <Label Content="[Is active]" FontWeight="Medium" Visibility="{Binding HardwareGPU1IsActive,Converter={StaticResource BooleanToVisibilityConverter},FallbackValue=Collapsed}" />
+        </DockPanel>
+
+        <Label Content="GPU2" Grid.Row="5" HorizontalAlignment="Right" FontWeight="Bold"/>
+        <DockPanel Grid.Row="5" Grid.Column="2">
+            <Label Content="{Binding HardwareGPU2Name}" />
+            <Label Content="{Binding HardwareGPU2MemoryMB}" ContentStringFormat="{}{0}MB"/>
+            <Label Content="[Is active]" FontWeight="Medium" Visibility="{Binding HardwareGPU2IsActive,Converter={StaticResource BooleanToVisibilityConverter},FallbackValue=Collapsed}" />
+        </DockPanel>
+        
+        <Label Content="Network IP adresses" Grid.Row="6" HorizontalAlignment="Right" FontWeight="Bold"/>
+        <Label Content="{Binding NetworkIpAdresses,Converter={StaticResource CollectionToStringConverter}}" Grid.Row="6" Grid.Column="2"/>
+
+        <Label Content="Applications" Grid.Row="7" HorizontalAlignment="Right" FontWeight="Bold"/>
+        <ListView ItemsSource="{Binding Applications}" Grid.Row="7" Grid.Column="2" BorderThickness="0"/>
+    </Grid>
+</UserControl>

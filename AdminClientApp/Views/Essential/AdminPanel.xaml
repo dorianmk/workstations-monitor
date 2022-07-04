@@ -1,0 +1,62 @@
+﻿<UserControl x:Class="AdminClientApp.Views.Essential.AdminPanel"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:AdminClientApp.Views.Essential"
+             xmlns:views="clr-namespace:AdminClientApp.Views"
+             xmlns:controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <UserControl.Resources>
+        <views:BindingProxy x:Key="adminPanelVM" Data="{Binding}"/>
+        <DataTemplate x:Key="MenuItemTemplate" DataType="{x:Type controls:HamburgerMenuGlyphItem}">
+            <Grid Height="48">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="48" />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <TextBlock Grid.Column="0" TextOptions.TextRenderingMode="Aliased"
+                    FontSize="24"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    FontFamily="Segoe MDL2 Assets"
+                    Foreground="White"
+                    Text="{Binding Glyph}" ToolTip="{Binding Label}"/>
+                <TextBlock Grid.Column="1"
+                    VerticalAlignment="Center"
+                    FontSize="20"
+                    Foreground="White"
+                    Text="{Binding Label}" />
+            </Grid>
+        </DataTemplate>       
+    </UserControl.Resources>
+    <controls:HamburgerMenu PaneBackground="{StaticResource AccentColorBrush}" ItemTemplate="{StaticResource MenuItemTemplate}" 
+                            SelectedItem="{Binding SelectedMenuItem}" Content="{Binding SelectedMenuItem.Tag}" IsPaneOpen="True">        
+        <controls:HamburgerMenu.ItemsSource>
+            <controls:HamburgerMenuItemCollection>
+                <controls:HamburgerMenuGlyphItem Glyph="&#xE9D9;" Label="Workstations">
+                    <controls:HamburgerMenuGlyphItem.Tag>
+                        <local:WorkstationsView DataContext="{Binding Data.WorkstationsVM,Source={StaticResource adminPanelVM}}"/>
+                    </controls:HamburgerMenuGlyphItem.Tag>
+                </controls:HamburgerMenuGlyphItem>
+                <controls:HamburgerMenuGlyphItem Glyph="&#xE9F9;" Label="Events">
+                    <controls:HamburgerMenuGlyphItem.Tag>
+                        <local:EventsView DataContext="{Binding Data.EventsVM,Source={StaticResource adminPanelVM}}"/>
+                    </controls:HamburgerMenuGlyphItem.Tag>
+                </controls:HamburgerMenuGlyphItem>
+                <controls:HamburgerMenuGlyphItem Glyph="&#xE81E;" Label="Maps">
+                    <controls:HamburgerMenuGlyphItem.Tag>
+                        <local:MapsView DataContext="{Binding Data.MapsVM,Source={StaticResource adminPanelVM}}"/>
+                    </controls:HamburgerMenuGlyphItem.Tag>
+                </controls:HamburgerMenuGlyphItem>
+                <controls:HamburgerMenuGlyphItem Glyph="&#xE716;" Label="Users">
+                    <controls:HamburgerMenuGlyphItem.Tag>
+                        <local:UsersView DataContext="{Binding Data.UsersVM,Source={StaticResource adminPanelVM}}"/>
+                    </controls:HamburgerMenuGlyphItem.Tag>
+                </controls:HamburgerMenuGlyphItem>
+            </controls:HamburgerMenuItemCollection>
+        </controls:HamburgerMenu.ItemsSource>
+    </controls:HamburgerMenu>
+
+</UserControl>

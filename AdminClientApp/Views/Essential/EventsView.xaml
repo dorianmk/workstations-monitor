@@ -1,0 +1,88 @@
+﻿<UserControl x:Class="AdminClientApp.Views.Essential.EventsView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"             
+             xmlns:behaviors="http://schemas.microsoft.com/xaml/behaviors"
+             xmlns:local="clr-namespace:AdminClientApp.Views.Essential"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <behaviors:Interaction.Triggers>
+        <behaviors:EventTrigger EventName="Loaded">
+            <behaviors:InvokeCommandAction Command="{Binding ViewLoadedCmd}"/>
+        </behaviors:EventTrigger>
+    </behaviors:Interaction.Triggers>
+    <TabControl Margin="5 10 10 10" controls:TabControlHelper.IsUnderlined="True" >
+        <TabItem Header="View">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="200"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <StackPanel>
+                    <GroupBox Header="Date and time" Margin="0 5 5 5">
+                        <ComboBox ItemsSource="{Binding DateTimeFilterModes}" SelectedItem="{Binding SelectedDateTimeFilter}"
+                          controls:ItemHelper.ActiveSelectionForegroundBrush="White">
+                            <ComboBox.ItemTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding Converter={StaticResource EnumDescriptionConverter}}"/>
+                                </DataTemplate>
+                            </ComboBox.ItemTemplate>
+                        </ComboBox>
+                    </GroupBox>
+                    <GroupBox Header="Workstation" Margin="0 5 5 5">
+                        <ListView MinHeight="200" ItemsSource="{Binding AllWorkstations}" controls:ItemHelper.ActiveSelectionForegroundBrush="White"
+                          controls:ItemHelper.SelectedForegroundBrush="White" Loaded="ListView_Loaded" BorderThickness="0">
+                            <behaviors:Interaction.Triggers>
+                                <behaviors:EventTrigger EventName="SelectionChanged">
+                                    <behaviors:InvokeCommandAction Command="{Binding WorkstationsSelectionChangedCmd}" PassEventArgsToCommand="True"/>
+                                </behaviors:EventTrigger>
+                            </behaviors:Interaction.Triggers>
+                        </ListView>
+                    </GroupBox>
+                    <GroupBox Header="Event type" Margin="0 5 5 5">
+                        <StackPanel>
+                            <CheckBox Margin="5" Content="Information" IsChecked="{Binding ShowInformations}"/>
+                            <CheckBox Margin="5" Content="Warning" IsChecked="{Binding ShowWarnings}"/>
+                            <CheckBox Margin="5" Content="Error" IsChecked="{Binding ShowErrors}"/>
+                        </StackPanel>
+                    </GroupBox>
+                    <GroupBox Header="Description" Margin="0 5 5 5">
+                        <TextBox Text="{Binding DescriptionFilter,UpdateSourceTrigger=PropertyChanged}"/>
+                    </GroupBox>
+                </StackPanel>
+                <Grid Grid.Column="1">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="50"/>
+                    </Grid.RowDefinitions>
+                    <DataGrid IsReadOnly="True" AutoGenerateColumns="False" ItemsSource="{Binding EventsView}" Margin="5" CanUserResizeColumns="False" CanUserSortColumns="False">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Date and time" Binding="{Binding DateTime,StringFormat=dd.MM.yyyy HH:mm:ss}" Width="120" />
+                            <DataGridTextColumn Header="Workstation" Binding="{Binding WorkstationName}" Width="auto"/>
+                            <DataGridTextColumn Header="Event type" Binding="{Binding EventType}" Width="auto"/>
+                            <DataGridTextColumn Header="Description" Binding="{Binding Description}" Width="*"/> 
+                        </DataGrid.Columns>
+                    </DataGrid>
+                    <Separator Grid.Row="1" VerticalAlignment="Top"/>
+                    <DockPanel Grid.Row="1" VerticalAlignment="Bottom">
+                        <TextBlock Text="{Binding EventsView.Count, StringFormat=Shown {0} events}" FontWeight="SemiBold" DockPanel.Dock="Left"
+                                   VerticalAlignment="Center"/>
+                        <Button Height="30" Width="30" Margin="15 5" Command="{Binding SaveToCsvCmd}" BorderThickness="1.5" DockPanel.Dock="Left"
+                                Content="&#xE74E;" FontFamily="Segoe MDL2 Assets" Style="{StaticResource SquareButtonStyle}" FontSize="20" ToolTip="Save to CSV" />
+                        <Button Height="30" Width="30" Margin="15 5" Command="{Binding RefreshCmd}" BorderThickness="1.5" DockPanel.Dock="Right"
+                                Content="&#xE72C;" FontFamily="Segoe MDL2 Assets" Style="{StaticResource SquareButtonStyle}"  />
+                        <TextBlock Text="{Binding LastUpdateDateTime, StringFormat=Last update was at {0:HH:mm:ss}}" DockPanel.Dock="Right" HorizontalAlignment="Right"
+                                   VerticalAlignment="Center"/>
+                    </DockPanel>  
+                </Grid>
+                
+            </Grid>
+        </TabItem>
+        <TabItem Header="Settings">
+            <local:EventsSettingsView DataContext="{Binding EventsSettingsVM}" Margin="10"/>
+        </TabItem>
+    </TabControl>
+
+</UserControl>

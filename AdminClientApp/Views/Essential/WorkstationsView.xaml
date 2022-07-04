@@ -1,0 +1,53 @@
+﻿<UserControl x:Class="AdminClientApp.Views.Essential.WorkstationsView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+             xmlns:converters="clr-namespace:AdminClientApp.Views.Converters"
+             xmlns:local="clr-namespace:AdminClientApp.Views.Essential">
+    <UserControl.Resources>
+        <converters:IsConnectedToBrushConverter x:Key="IsConnectedToBrushConverter"/>
+    </UserControl.Resources>
+    <Grid Margin="10">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="200"/>
+            <ColumnDefinition Width="10"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <GroupBox Header="Workstation" VerticalAlignment="Top" MinHeight="350" Margin="0 0 5 5">
+            <DataGrid ItemsSource="{Binding Workstations}" IsReadOnly="True" AutoGenerateColumns="False" CanUserResizeColumns="False" CanUserReorderColumns="False" 
+                  SelectionMode="Single" SelectedItem="{Binding SelectedWorkstation}" HeadersVisibility="None">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Width="*" Binding="{Binding Name}"/>
+                    <DataGridTemplateColumn>
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Ellipse Height="15" Width="15" Fill="{Binding IsConnected,Converter={StaticResource IsConnectedToBrushConverter}}"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                </DataGrid.Columns>
+            </DataGrid>
+        </GroupBox>
+        <TabControl Grid.Column="2" controls:TabControlHelper.IsUnderlined="True"
+                    DataContext="{Binding SelectedWorkstation}" 
+                    Visibility="{Binding Path=.,Converter={StaticResource NullToVisibilityConverter}}">
+            <TabItem Header="Processes">
+                <Grid Visibility="{Binding IsConnected,Converter={StaticResource BooleanToVisibilityConverter}}">
+                    <local:ProcessesView DataContext="{Binding ProcessesViewModel}"/>
+                </Grid>               
+            </TabItem>
+            <TabItem Header="Performance">
+                <Grid Visibility="{Binding IsConnected,Converter={StaticResource BooleanToVisibilityConverter}}">
+                    <local:PerformanceView DataContext="{Binding PerformanceViewModel}"/>
+                </Grid>
+            </TabItem>
+            <TabItem Header="System info">
+                <Grid Visibility="{Binding IsConnected,Converter={StaticResource BooleanToVisibilityConverter}}">
+                    <local:SystemInfoView DataContext="{Binding SystemInfo}"/>
+                </Grid>
+            </TabItem>
+        </TabControl>
+    </Grid>
+</UserControl>

@@ -1,0 +1,120 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{F2D67E65-11F1-4541-B2E7-21D8832AC2A1}</ProjectGuid>
+    <OutputType>Exe</OutputType>
+    <RootNamespace>ServerService</RootNamespace>
+    <AssemblyName>ServerService</AssemblyName>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="AutoMapper, Version=9.0.0.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
+      <HintPath>..\packages\AutoMapper.9.0.0\lib\net461\AutoMapper.dll</HintPath>
+    </Reference>
+    <Reference Include="BCrypt.Net-Next, Version=3.2.1.0, Culture=neutral, PublicKeyToken=1e11be04b6288443, processorArchitecture=MSIL">
+      <HintPath>..\packages\BCrypt.Net-Next.3.2.1\lib\net452\BCrypt.Net-Next.dll</HintPath>
+    </Reference>
+    <Reference Include="SimpleInjector, Version=4.7.1.0, Culture=neutral, PublicKeyToken=984cb50dea722e99, processorArchitecture=MSIL">
+      <HintPath>..\packages\SimpleInjector.4.7.1\lib\net45\SimpleInjector.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.ServiceProcess" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Entry\Components\DataPacketsProfile.cs" />
+    <Compile Include="Essential\AdminClient\AdminClients.cs" />
+    <Compile Include="Common\Hashing\BCryptHashing.cs" />
+    <Compile Include="Entry\Settings\DatabaseSettings.cs" />
+    <Compile Include="Common\Hashing\IHashing.cs" />
+    <Compile Include="Essential\AdminClient\Events\EventEntityToDtoConverter.cs" />
+    <Compile Include="Essential\AdminClient\Events\EventRuleToDtoConverter.cs" />
+    <Compile Include="Essential\AdminClient\Events\EventsOriginateRules\DiskEventOriginateRule.cs" />
+    <Compile Include="Essential\AdminClient\Events\EventsOriginateRules\TCPEventOriginateRule.cs" />
+    <Compile Include="Essential\AdminClient\Events\IEventsOriginator.cs" />
+    <Compile Include="Essential\AdminClient\Events\ProcessesEventOriginateRulesFactory.cs" />
+    <Compile Include="Essential\AdminClient\Events\EventRuleDtoToEntityConverter.cs" />
+    <Compile Include="Essential\AdminClient\Events\EventsOriginateRules\CPUEventOriginateRule.cs" />
+    <Compile Include="Essential\AdminClient\Events\EventsOriginateRules\MemoryEventOriginateRule.cs" />
+    <Compile Include="Essential\AdminClient\Events\EventsOriginateRules\ProcessesEventOriginateRule.cs" />
+    <Compile Include="Essential\AdminClient\Events\EventsOriginator.cs" />
+    <Compile Include="Essential\AdminClient\LoginRequestValidator.cs" />
+    <Compile Include="Entry\Program.cs" />
+    <Compile Include="Essential\AdminClient\MapsDtoToEntityConverter.cs" />
+    <Compile Include="Essential\AdminClient\MapsEntityToDtoConverter.cs" />
+    <Compile Include="Essential\AdminClient\UsersEntityToDtoConverter.cs" />
+    <Compile Include="Essential\Workstation\WorkstationCache.cs" />
+    <Compile Include="Essential\Workstation\WorkstationCacheFactory.cs" />
+    <Compile Include="Essential\Workstation\WorkstationDTOFactory.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Entry\Service\Service.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Entry\Service\ServiceFactory.cs" />
+    <Compile Include="Entry\Settings\TcpServerSettings.cs" />
+    <Compile Include="Entry\MainWorker.cs" />
+    <Compile Include="Essential\Workstation\WorkstationsManager.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="packages.config">
+      <SubType>Designer</SubType>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Common.ServerClient\Common.csproj">
+      <Project>{cbbcdf80-4293-4ffc-b964-3fece91b5728}</Project>
+      <Name>Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Database.Interfaces\Database.Interfaces.csproj">
+      <Project>{677083dc-758f-481a-a726-753c87f12dea}</Project>
+      <Name>Database.Interfaces</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Database.MongoDB\Database.MongoDB.csproj">
+      <Project>{7c7425fb-840e-4661-95a3-6828e7a7b062}</Project>
+      <Name>Database.MongoDB</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DataTransfer.Interfaces\DataTransfer.Interfaces.csproj">
+      <Project>{396d3b0b-1639-4608-ad33-9145d17cc6a9}</Project>
+      <Name>DataTransfer.Interfaces</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DataTransfer.Tcp\DataTransfer.Tcp.csproj">
+      <Project>{60927db4-116f-4e3c-b3b7-3c979f6fd38c}</Project>
+      <Name>DataTransfer.Tcp</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>
