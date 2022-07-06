@@ -1,39 +1,10 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{73CD7655-AD26-426C-9783-BC92A1445742}</ProjectGuid>
+    <TargetFramework>net6.0-windows</TargetFramework>
     <OutputType>WinExe</OutputType>
-    <RootNamespace>AdminClientApp</RootNamespace>
-    <AssemblyName>AdminClientApp</AssemblyName>
-    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
-    <FileAlignment>512</FileAlignment>
-    <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
-    <WarningLevel>4</WarningLevel>
-    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
-    <Deterministic>true</Deterministic>
-    <TargetFrameworkProfile />
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
-    <DebugType>pdbonly</DebugType>
-    <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <UseWPF>true</UseWPF>
+    <ImportWindowsDesktopTargets>true</ImportWindowsDesktopTargets>
   </PropertyGroup>
   <PropertyGroup>
     <StartupObject>AdminClientApp.Entry.Program</StartupObject>
@@ -42,223 +13,34 @@
     <ApplicationIcon>Resources\4230522-analysis-analytics-graph_115012.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="AutoMapper, Version=9.0.0.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
-      <HintPath>..\packages\AutoMapper.9.0.0\lib\net461\AutoMapper.dll</HintPath>
-    </Reference>
-    <Reference Include="ControlzEx, Version=3.0.2.4, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\ControlzEx.3.0.2.4\lib\net45\ControlzEx.dll</HintPath>
-    </Reference>
-    <Reference Include="LiveCharts, Version=0.9.7.0, Culture=neutral, PublicKeyToken=0bc1f845d1ebb8df, processorArchitecture=MSIL">
-      <HintPath>..\packages\LiveCharts.0.9.7\lib\net45\LiveCharts.dll</HintPath>
-    </Reference>
-    <Reference Include="LiveCharts.Wpf, Version=0.9.7.0, Culture=neutral, PublicKeyToken=0bc1f845d1ebb8df, processorArchitecture=MSIL">
-      <HintPath>..\packages\LiveCharts.Wpf.0.9.7\lib\net45\LiveCharts.Wpf.dll</HintPath>
-    </Reference>
-    <Reference Include="MahApps.Metro, Version=1.6.5.1, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\MahApps.Metro.1.6.5\lib\net46\MahApps.Metro.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.Xaml.Behaviors, Version=1.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.Xaml.Behaviors.Wpf.1.1.19\lib\net45\Microsoft.Xaml.Behaviors.dll</HintPath>
-    </Reference>
-    <Reference Include="SimpleInjector, Version=4.7.1.0, Culture=neutral, PublicKeyToken=984cb50dea722e99, processorArchitecture=MSIL">
-      <HintPath>..\packages\SimpleInjector.4.7.1\lib\net45\SimpleInjector.dll</HintPath>
-    </Reference>
-    <Reference Include="System" />
-    <Reference Include="System.Configuration" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\ControlzEx.3.0.2.4\lib\net45\System.Windows.Interactivity.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Xml" />
-    <Reference Include="Microsoft.CSharp" />
-    <Reference Include="System.Core" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="System.Net.Http" />
-    <Reference Include="System.Xaml">
-      <RequiredTargetFramework>4.0</RequiredTargetFramework>
-    </Reference>
-    <Reference Include="WindowsBase" />
-    <Reference Include="PresentationCore" />
-    <Reference Include="PresentationFramework" />
+    <None Remove="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ApplicationDefinition Include="Entry\App.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </ApplicationDefinition>
-    <Compile Include="Entry\Program.cs" />
-    <Compile Include="Entry\Settings\Endpoint.cs" />
-    <Compile Include="Entry\Components\DataPacketsProfile.cs" />
-    <Compile Include="ViewModels\Essential\EventsViewModel.cs" />
-    <Compile Include="ViewModels\Essential\Events\DateTimeFilterMode.cs" />
-    <Compile Include="ViewModels\Essential\Events\EventRuleToDtoConverter.cs" />
-    <Compile Include="ViewModels\Essential\Events\EventRuleToViewModelConverter.cs" />
-    <Compile Include="ViewModels\Essential\Events\EventRuleViewModel.cs" />
-    <Compile Include="ViewModels\Essential\Events\EventsProvider.cs" />
-    <Compile Include="ViewModels\Essential\Events\EventsSettingsViewModel.cs" />
-    <Compile Include="ViewModels\Essential\Events\EventViewModel.cs" />
-    <Compile Include="ViewModels\Essential\Events\EventViewModelFactory.cs" />
-    <Compile Include="ViewModels\Essential\MapsViewModel.cs" />
-    <Compile Include="ViewModels\Essential\Maps\ImageItem.cs" />
-    <Compile Include="ViewModels\Essential\Maps\MapItemBase.cs" />
-    <Compile Include="ViewModels\Essential\Maps\MapViewModelFactory.cs" />
-    <Compile Include="ViewModels\Essential\Maps\MapViewModel.cs" />
-    <Compile Include="ViewModels\Essential\Maps\MoveItemBehaviour.cs" />
-    <Compile Include="ViewModels\Essential\Maps\MapDTOFactory.cs" />
-    <Compile Include="ViewModels\Essential\Maps\WorkstationItem.cs" />
-    <Compile Include="ViewModels\Essential\UsersViewModel.cs" />
-    <Compile Include="ViewModels\Essential\Users\UserViewModel.cs" />
-    <Compile Include="ViewModels\Essential\Users\UserViewModelFactory.cs" />
-    <Compile Include="ViewModels\Essential\Workstations\WorkstationsProvider.cs" />
-    <Compile Include="Views\BindingProxy.cs" />
-    <Compile Include="ViewModels\Essential\AdminPanelViewModel.cs" />
-    <Compile Include="ViewModels\Common\BindableBase.cs" />
-    <Compile Include="ViewModels\Essential\WorkstationsViewModel.cs" />
-    <Compile Include="ViewModels\Essential\Workstations\Performance\PerformanceViewModel.cs" />
-    <Compile Include="ViewModels\Essential\Workstations\Processes\ProcessInfoViewModel.cs" />
-    <Compile Include="ViewModels\Essential\Workstations\Processes\ProcessInfoViewModelUpserter.cs" />
-    <Compile Include="ViewModels\Essential\Workstations\WorkstationViewModelUpserter.cs" />
-    <Compile Include="ViewModels\Startup\AdminPanelViewModelFactory.cs" />
-    <Compile Include="ViewModels\Startup\LoginViewModel.cs" />
-    <Compile Include="ViewModels\Startup\MainViewModel.cs" />
-    <Compile Include="ViewModels\Essential\Workstations\Processes\ProcessesViewModel.cs" />
-    <Compile Include="ViewModels\Essential\Workstations\WorkstationViewModel.cs" />
-    <Compile Include="Views\Converters\CollectionToStringConverter.cs" />
-    <Compile Include="Views\Converters\CombinedConverters.cs" />
-    <Compile Include="Views\Converters\EnumDescriptionConverter.cs" />
-    <Compile Include="Views\Converters\IsConnectedToBrushConverter.cs" />
-    <Compile Include="Views\Converters\NullToBooleanConverter.cs" />
-    <Compile Include="Views\Essential\EventsSettingsView.xaml.cs">
-      <DependentUpon>EventsSettingsView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Essential\EventsView.xaml.cs">
-      <DependentUpon>EventsView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Essential\SystemInfoView.xaml.cs">
-      <DependentUpon>SystemInfoView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Essential\UsersView.xaml.cs">
-      <DependentUpon>UsersView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Essential\WorkstationsView.xaml.cs">
-      <DependentUpon>WorkstationsView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Essential\MapsView.xaml.cs">
-      <DependentUpon>MapsView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Essential\PerformanceView.xaml.cs">
-      <DependentUpon>PerformanceView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Essential\ProcessesView.xaml.cs">
-      <DependentUpon>ProcessesView.xaml</DependentUpon>
-    </Compile>
-    <Page Include="Views\Essential\AdminPanel.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\Essential\EventsSettingsView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\Essential\EventsView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\Essential\SystemInfoView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\Essential\UsersView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\Essential\WorkstationsView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\Essential\MapsView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\Essential\PerformanceView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\Startup\Login.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\Startup\MainWindow.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Compile Include="Entry\App.xaml.cs">
-      <DependentUpon>App.xaml</DependentUpon>
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="ViewModels\Common\RelayCommand.cs" />
-    <Compile Include="Views\Essential\AdminPanel.xaml.cs">
-      <DependentUpon>AdminPanel.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Startup\Login.xaml.cs">
-      <DependentUpon>Login.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Startup\MainWindow.xaml.cs">
-      <DependentUpon>MainWindow.xaml</DependentUpon>
-      <SubType>Code</SubType>
-    </Compile>
-    <Page Include="Views\Essential\ProcessesView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Properties\AssemblyInfo.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Resources.resx</DependentUpon>
-    </Compile>
-    <Compile Include="Properties\Settings.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Settings.settings</DependentUpon>
-      <DesignTimeSharedInput>True</DesignTimeSharedInput>
-    </Compile>
-    <EmbeddedResource Include="Properties\Resources.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-    <None Include="packages.config">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Properties\Settings.settings">
-      <Generator>SettingsSingleFileGenerator</Generator>
-      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="App.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Common.ServerClient\Common.csproj">
-      <Project>{cbbcdf80-4293-4ffc-b964-3fece91b5728}</Project>
-      <Name>Common</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\DataTransfer.Interfaces\DataTransfer.Interfaces.csproj">
-      <Project>{396D3B0B-1639-4608-AD33-9145D17CC6A9}</Project>
-      <Name>DataTransfer.Interfaces</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\DataTransfer.Tcp\DataTransfer.Tcp.csproj">
-      <Project>{60927DB4-116F-4E3C-B3B7-3C979F6FD38C}</Project>
-      <Name>DataTransfer.Tcp</Name>
-    </ProjectReference>
+    <ProjectReference Include="..\Common.ServerClient\Common.csproj" />
+    <ProjectReference Include="..\DataTransfer.Interfaces\DataTransfer.Interfaces.csproj" />
+    <ProjectReference Include="..\DataTransfer.Tcp\DataTransfer.Tcp.csproj" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\4230522-analysis-analytics-graph_115012.ico" />
   </ItemGroup>
-  <ItemGroup />
-  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <ItemGroup>
+    <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.FileExtensions" Version="6.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="6.0.0" />
+    <PackageReference Include="Microsoft.DotNet.UpgradeAssistant.Extensions.Default.Analyzers" Version="0.3.330701">
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+    <PackageReference Include="MahApps.Metro" Version="2.4.9" />
+    <PackageReference Include="Microsoft.Windows.Compatibility" Version="6.0.0" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="9.0.0" />
+    <PackageReference Include="LiveCharts.Wpf" Version="0.9.7" />
+    <PackageReference Include="SimpleInjector" Version="4.7.1" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Update="appsettings.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
 </Project>

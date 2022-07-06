@@ -26,9 +26,9 @@
         </Grid.ColumnDefinitions>
         <StackPanel>
             <Grid Margin="0 5">
-                <Label Content="Edit mode" Style="{StaticResource MetroLabel}" FontSize="16"/>
-                <controls:ToggleSwitch Style="{StaticResource MahApps.Metro.Styles.ToggleSwitch.Win10}" OffLabel="Off" OnLabel="On" 
-                                   IsChecked="{Binding EditMode}"  HorizontalAlignment="Right" VerticalAlignment="Center" Margin="5 0"/>
+                <Label Content="Edit mode" Style="{StaticResource MahApps.Styles.Label}" FontSize="16"/>
+                <controls:ToggleSwitch OffContent="Off" OnContent="On"  IsOn="{Binding EditMode}"
+                          HorizontalAlignment="Right" Margin="5 0" ContentDirection="LeftToRight"/>
             </Grid>
             <GroupBox Header="Map" MinHeight="350">
                 <ListBox controls:ItemHelper.ActiveSelectionForegroundBrush="White" controls:ItemHelper.SelectedForegroundBrush="White"
@@ -36,16 +36,16 @@
             </GroupBox>            
             <StackPanel Visibility="{Binding EditMode,Converter={StaticResource BooleanToVisibilityConverter}}" Orientation="Horizontal" HorizontalAlignment="Center">
                 <Button Height="30" Width="30" Margin="5" Command="{Binding AddMapCommand}" BorderThickness="1.5"
-                    Content="&#xE948;" FontFamily="Segoe MDL2 Assets" Style="{StaticResource SquareButtonStyle}" />
+                    Content="&#xE948;" FontFamily="Segoe MDL2 Assets" Style="{StaticResource MahApps.Styles.Button.Square}" />
                 <Button Height="30" Width="30" Margin="5" Command="{Binding RemoveMapCommand}" BorderThickness="1.5"
-                    Content="&#xE949;" FontFamily="Segoe MDL2 Assets" Style="{StaticResource SquareButtonStyle}" />
+                    Content="&#xE949;" FontFamily="Segoe MDL2 Assets" Style="{StaticResource MahApps.Styles.Button.Square}" />
             </StackPanel>
             <StackPanel Visibility="{Binding EditMode,Converter={StaticResource BooleanToVisibilityConverter}}">
                 <Expander Header="New items" controls:ControlsHelper.ContentCharacterCasing="Normal" IsExpanded="True" Margin="0 10"
                           DataContext="{Binding SelectedMap}" Visibility="{Binding Converter={StaticResource NullToVisibilityConverter}}">
                     <StackPanel>
-                        <Button Height="30" Margin="5" Command="{Binding AddImageCommand}" Content="Image" Style="{StaticResource SquareButtonStyle}"
-                                controls:ButtonHelper.PreserveTextCase="True" BorderThickness="1"/>
+                        <Button Height="30" Margin="5" Command="{Binding AddImageCommand}" Content="Image" Style="{StaticResource MahApps.Styles.Button.Square}"
+                                controls:ControlsHelper.ContentCharacterCasing="Normal"  BorderThickness="1"/>
                         <controls:DropDownButton Height="30" Margin="5" ItemsSource="{Binding Data.Workstations,Source={StaticResource mapsVM}}">
                             <controls:DropDownButton.ItemContainerStyle>
                                 <Style BasedOn="{StaticResource {x:Type MenuItem}}" TargetType="{x:Type MenuItem}">

@@ -19,7 +19,7 @@ namespace AdminClientApp.ViewModels.Essential.Maps
             var result = new MapDTO();
             result.Id = param.Id;
             result.Name = param.Name;
-            result.Items = param.Items.Select(x => MapItemDTOFactory.Create(x)).ToList();
+            result.Items = param.Items.Select(x => MapItemDTOFactory.Create(x)).ToArray();
             return result;
         }
     }

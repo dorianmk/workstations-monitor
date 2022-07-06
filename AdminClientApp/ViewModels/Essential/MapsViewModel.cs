@@ -53,7 +53,7 @@ namespace AdminClientApp.ViewModels.Essential
         private void SaveChanges()
         {
             var packet = new SaveMapsPacket();
-            packet.Maps = Maps.Select(x => MapDTOFactory.Create(x)).ToList();
+            packet.Maps = Maps.Select(x => MapDTOFactory.Create(x)).ToArray();
             Connection.Server.Write(packet);
         }
 

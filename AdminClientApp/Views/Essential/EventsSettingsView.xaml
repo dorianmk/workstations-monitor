@@ -90,7 +90,7 @@
                         <DataGridTemplateColumn Width="50">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
-                                    <Button Content="&#xE74D;" FontFamily="Segoe MDL2 Assets" Style="{StaticResource SquareButtonStyle}" FontSize="18" FontWeight="Light"
+                                    <Button Content="&#xE74D;" FontFamily="Segoe MDL2 Assets" Style="{StaticResource MahApps.Styles.Button.Square}" FontSize="18" FontWeight="Light"
                                 VerticalContentAlignment="Center" Width="30" Height="30" Padding="2 0 0 0" BorderThickness="0" 
                                 Command="{Binding Data.DeleteRuleCmd,Source={StaticResource eventsSettingsVM}}" CommandParameter="{Binding}"
                                 ToolTip="Delete">
@@ -110,10 +110,10 @@
                         <ColumnDefinition/>
                         <ColumnDefinition Width="200"/>
                     </Grid.ColumnDefinitions>
-                    <Button Content="Add event originate rule" Margin="10" Command="{Binding AddRuleCmd}" controls:ButtonHelper.PreserveTextCase="True"
-                            Style="{StaticResource SquareButtonStyle}" BorderThickness="1.5" HorizontalAlignment="Left" Padding="20 0"/>
-                    <Button Content="Save rules" Margin="10" Command="{Binding SaveRulesCmd}" Grid.Column="1" controls:ButtonHelper.PreserveTextCase="True"
-                            Style="{StaticResource SquareButtonStyle}" BorderThickness="1.5" HorizontalAlignment="Right" Padding="20 0"/>
+                    <Button Content="Add event originate rule" Margin="10" Command="{Binding AddRuleCmd}" controls:ControlsHelper.ContentCharacterCasing="Normal"
+                            Style="{StaticResource MahApps.Styles.Button.Square}" BorderThickness="1.5" HorizontalAlignment="Left" Padding="20 0"/>
+                    <Button Content="Save rules" Margin="10" Command="{Binding SaveRulesCmd}" Grid.Column="1" controls:ControlsHelper.ContentCharacterCasing="Normal"
+                            Style="{StaticResource MahApps.Styles.Button.Square}" BorderThickness="1.5" HorizontalAlignment="Right" Padding="20 0"/>
                 </Grid>                
             </Grid>           
         </GroupBox>       

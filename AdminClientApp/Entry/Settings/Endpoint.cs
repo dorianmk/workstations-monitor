@@ -1,5 +1,5 @@
-﻿using System.Configuration;
-using DataTransfer.Tcp;
+﻿using DataTransfer.Tcp;
+using Microsoft.Extensions.Configuration;
 
 namespace AdminClientApp.Entry.Settings
 {
@@ -9,10 +9,10 @@ namespace AdminClientApp.Entry.Settings
 
         public int Port { get; }
 
-        public Endpoint()
+        public Endpoint(IConfiguration configuration)
         {
-            Hostname = ConfigurationManager.AppSettings["hostname"].ToString();
-            Port = int.Parse(ConfigurationManager.AppSettings["port"].ToString());
+            Hostname = configuration["hostname"].ToString();
+            Port = int.Parse(configuration["port"].ToString());
         }
     }
 }

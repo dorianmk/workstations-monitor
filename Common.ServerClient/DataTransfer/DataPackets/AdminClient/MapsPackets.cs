@@ -1,23 +1,22 @@
 ﻿using DataTransfer.Interfaces;
-using System.Collections.Generic;
 
 namespace Common.DataTransfer.DataPackets.AdminClient
 {
     public class SaveMapsPacket : IData
     {
-        public List<MapDTO> Maps { get; set; }
+        public MapDTO[] Maps { get; set; }
     }
 
     public class GetMapsPacket : IData
     {
-        public List<MapDTO> Maps { get; set; }
+        public MapDTO[] Maps { get; set; }
     }
 
     public class MapDTO
     {
         public string Id { get; set; }
         public string Name { get; set; }
-        public List<MapItemDTO> Items { get; set; }
+        public MapItemDTO[] Items { get; set; }
     }
 
     public class MapItemDTO

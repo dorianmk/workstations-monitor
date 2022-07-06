@@ -30,7 +30,7 @@
                 </DataGrid.Columns>
             </DataGrid>
         </GroupBox>
-        <TabControl Grid.Column="2" controls:TabControlHelper.IsUnderlined="True"
+        <TabControl Grid.Column="2" controls:TabControlHelper.Underlined="SelectedTabItem"
                     DataContext="{Binding SelectedWorkstation}" 
                     Visibility="{Binding Path=.,Converter={StaticResource NullToVisibilityConverter}}">
             <TabItem Header="Processes">

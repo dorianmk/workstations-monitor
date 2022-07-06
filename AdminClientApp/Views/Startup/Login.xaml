@@ -15,6 +15,6 @@
         <PasswordBox Grid.Row="2" PasswordChanged="PasswordBox_PasswordChanged" Width="120" controls:TextBoxHelper.Watermark="Password"  
                      controls:PasswordBoxHelper.CapsLockWarningToolTip="Caps lock is on"/>
         <Button Grid.Row="4" Content="Ok" Command="{Binding LoginCommand}" Width="120" IsDefault="True" 
-                Style="{StaticResource AccentedSquareButtonStyle}" controls:ButtonHelper.PreserveTextCase="True"/>
+                Style="{StaticResource MahApps.Styles.Button.Square.Accent}" controls:ControlsHelper.ContentCharacterCasing="Normal"/>
     </Grid>
 </UserControl>

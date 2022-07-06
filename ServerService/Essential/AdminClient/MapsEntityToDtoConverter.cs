@@ -21,7 +21,7 @@ namespace ServerService.Essential.AdminClient
             var result = new MapDTO();
             result.Id = param.GetId();
             result.Name = param.Name;
-            result.Items = param.Items.Select(x => MapItemsEntityToDtoConverter.Create(x)).ToList();
+            result.Items = param.Items.Select(x => MapItemsEntityToDtoConverter.Create(x)).ToArray();
             return result;
         }
     }

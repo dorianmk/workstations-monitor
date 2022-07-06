@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using AdminClientApp.Entry.Components;
 using AdminClientApp.Entry.Settings;
 using AdminClientApp.ViewModels.Essential;
@@ -18,6 +19,7 @@ using DataTransfer.Interfaces;
 using DataTransfer.Tcp;
 using DataTransfer.Tcp.Serializers;
 using MahApps.Metro.Controls.Dialogs;
+using Microsoft.Extensions.Configuration;
 using SimpleInjector;
 
 namespace AdminClientApp.Entry
@@ -30,6 +32,7 @@ namespace AdminClientApp.Entry
         {
             Container = new Container();
             Container.Options.DefaultLifestyle = Lifestyle.Singleton;
+            Container.Register<IConfiguration>(() => GetConfiguration());
             Container.Register<ISerializer, JsonSerializer>();
             Container.Register<IEndpoint, Endpoint>();
             Container.Register<IClientConnection, TcpClient>();
@@ -52,12 +55,12 @@ namespace AdminClientApp.Entry
             Container.Register<IFactory<AdminPanelViewModel>, AdminPanelViewModelFactory>();
             Container.Register<AdminPanelViewModel>();
             Container.Register<DataPacketsProfile>();
-            Container.Register<IConfigurationProvider>(() => new MapperConfiguration(cfg =>
+            Container.Register<AutoMapper.IConfigurationProvider>(() => new MapperConfiguration(cfg =>
             {
                 cfg.AddProfile<DataPacketsProfile>();
                 cfg.ConstructServicesUsing(Container.GetInstance);
             }));
-            Container.Register(() => Container.GetInstance<IConfigurationProvider>().CreateMapper());
+            Container.Register(() => Container.GetInstance<AutoMapper.IConfigurationProvider>().CreateMapper());
             Container.Register(()=> Container.GetInstance<IClientConnection>().Server);
             Container.Register<IRequestResponse, RequestResponseManager>();
         }
@@ -75,6 +78,14 @@ namespace AdminClientApp.Entry
             var app = new App();
             var mainWindow = Container.GetInstance<MainWindow>();
             app.Run(mainWindow);
+        }
+
+        private static IConfiguration GetConfiguration()
+        {
+            var builder = new ConfigurationBuilder()
+                .SetBasePath(Directory.GetCurrentDirectory())
+                .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true);
+            return builder.Build(); 
         }
 
     }

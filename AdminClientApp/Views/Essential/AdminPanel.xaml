@@ -31,7 +31,7 @@
             </Grid>
         </DataTemplate>       
     </UserControl.Resources>
-    <controls:HamburgerMenu PaneBackground="{StaticResource AccentColorBrush}" ItemTemplate="{StaticResource MenuItemTemplate}" 
+    <controls:HamburgerMenu PaneBackground="{StaticResource  MahApps.Brushes.Accent}" ItemTemplate="{StaticResource MenuItemTemplate}" 
                             SelectedItem="{Binding SelectedMenuItem}" Content="{Binding SelectedMenuItem.Tag}" IsPaneOpen="True">        
         <controls:HamburgerMenu.ItemsSource>
             <controls:HamburgerMenuItemCollection>

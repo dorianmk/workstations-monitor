@@ -151,7 +151,7 @@ namespace ServerService.Essential.AdminClient
         private void SendCurrentMaps(IDataWriter client)
         {
             var packet = new GetMapsPacket();
-            packet.Maps = Maps.GetAll().Select(x => MapsEntityToDtoConverter.Create(x)).ToList();
+            packet.Maps = Maps.GetAll().Select(x => MapsEntityToDtoConverter.Create(x)).ToArray();
             client.Write(packet);
         }
 

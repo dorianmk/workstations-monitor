@@ -13,7 +13,7 @@
             <behaviors:InvokeCommandAction Command="{Binding ViewLoadedCmd}"/>
         </behaviors:EventTrigger>
     </behaviors:Interaction.Triggers>
-    <TabControl Margin="5 10 10 10" controls:TabControlHelper.IsUnderlined="True" >
+    <TabControl Margin="5 10 10 10" controls:TabControlHelper.Underlined="SelectedTabItem" >
         <TabItem Header="View">
             <Grid>
                 <Grid.ColumnDefinitions>
@@ -70,9 +70,9 @@
                         <TextBlock Text="{Binding EventsView.Count, StringFormat=Shown {0} events}" FontWeight="SemiBold" DockPanel.Dock="Left"
                                    VerticalAlignment="Center"/>
                         <Button Height="30" Width="30" Margin="15 5" Command="{Binding SaveToCsvCmd}" BorderThickness="1.5" DockPanel.Dock="Left"
-                                Content="&#xE74E;" FontFamily="Segoe MDL2 Assets" Style="{StaticResource SquareButtonStyle}" FontSize="20" ToolTip="Save to CSV" />
+                                Content="&#xE74E;" FontFamily="Segoe MDL2 Assets" Style="{StaticResource MahApps.Styles.Button.Square}" FontSize="20" ToolTip="Save to CSV" />
                         <Button Height="30" Width="30" Margin="15 5" Command="{Binding RefreshCmd}" BorderThickness="1.5" DockPanel.Dock="Right"
-                                Content="&#xE72C;" FontFamily="Segoe MDL2 Assets" Style="{StaticResource SquareButtonStyle}"  />
+                                Content="&#xE72C;" FontFamily="Segoe MDL2 Assets" Style="{StaticResource MahApps.Styles.Button.Square}"  />
                         <TextBlock Text="{Binding LastUpdateDateTime, StringFormat=Last update was at {0:HH:mm:ss}}" DockPanel.Dock="Right" HorizontalAlignment="Right"
                                    VerticalAlignment="Center"/>
                     </DockPanel>  

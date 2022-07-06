@@ -36,7 +36,7 @@
                 </behaviors:Interaction.Triggers>
             </PasswordBox>
             <Button Height="30" Width="180" Margin="5" Command="{Binding ChangePasswordCommand}" Content="Change password"
-                    Style="{StaticResource SquareButtonStyle}" controls:ButtonHelper.PreserveTextCase="True" BorderThickness="1"/>
+                    Style="{StaticResource MahApps.Styles.Button.Square}" controls:ControlsHelper.ContentCharacterCasing="Normal" BorderThickness="1"/>
         </StackPanel>       
     </Grid>
 </UserControl>
