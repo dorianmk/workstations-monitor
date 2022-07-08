@@ -10,7 +10,6 @@ using AdminClientApp.ViewModels.Essential.Workstations;
 using AdminClientApp.ViewModels.Essential.Workstations.Processes;
 using AdminClientApp.ViewModels.Startup;
 using AdminClientApp.Views.Startup;
-using AutoMapper;
 using Common.DataTransfer.DataPackets.AdminClient;
 using Common.DataTransfer.DataPackets.Workstation;
 using Common.DataTransfer.RequestResponse;
@@ -20,63 +19,57 @@ using DataTransfer.Tcp;
 using DataTransfer.Tcp.Serializers;
 using MahApps.Metro.Controls.Dialogs;
 using Microsoft.Extensions.Configuration;
-using SimpleInjector;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace AdminClientApp.Entry
 {
     static class Program
     {
-        private static Container Container { get; }
+        private static IServiceProvider ServiceProvider { get; }
 
         static Program()
         {
-            Container = new Container();
-            Container.Options.DefaultLifestyle = Lifestyle.Singleton;
-            Container.Register<IConfiguration>(() => GetConfiguration());
-            Container.Register<ISerializer, JsonSerializer>();
-            Container.Register<IEndpoint, Endpoint>();
-            Container.Register<IClientConnection, TcpClient>();
-            Container.Register<WorkstationViewModel>(Lifestyle.Transient);
-            Container.Register<IProvider<WorkstationViewModel>, WorkstationsProvider>();
-            Container.Register<IFactory<EventDTO, EventViewModel>, EventViewModelFactory>();
-            Container.Register<IFactory<EventRuleViewModel, EventRuleDTO>, EventRuleToDtoConverter>();
-            Container.Register<IFactory<EventRuleDTO, EventRuleViewModel>, EventRuleToViewModelConverter>();
-            Container.Register<IUpserter<WorkstationDTO, WorkstationViewModel>, WorkstationViewModelUpserter>();
-            Container.Register<IUpserter<ProcessInfoDTO, ProcessInfoViewModel>, ProcessInfoViewModelUpserter>();
-            Container.Register<IFactory<MapItemBase, MapItemDTO>, MapItemDTOFactory>();
-            Container.Register<IFactory<MapViewModel, MapDTO>, MapDTOFactory>();
-            Container.Register<IFactory<MapItemDTO, MapItemBase>, MapItemViewModelFactory>();
-            Container.Register<IFactory<MapDTO, MapViewModel>, MapViewModelFactory>();
-            Container.Register<IFactory<UserDTO, UserViewModel>, UserViewModelFactory>();
-            Container.Register<MainWindow>();
-            Container.Register(() => DialogCoordinator.Instance);
-            Container.Register<MainViewModel>();
-            Container.Register<IServiceProvider>(() => Container);
-            Container.Register<IFactory<AdminPanelViewModel>, AdminPanelViewModelFactory>();
-            Container.Register<AdminPanelViewModel>();
-            Container.Register<DataPacketsProfile>();
-            Container.Register<AutoMapper.IConfigurationProvider>(() => new MapperConfiguration(cfg =>
-            {
-                cfg.AddProfile<DataPacketsProfile>();
-                cfg.ConstructServicesUsing(Container.GetInstance);
-            }));
-            Container.Register(() => Container.GetInstance<AutoMapper.IConfigurationProvider>().CreateMapper());
-            Container.Register(()=> Container.GetInstance<IClientConnection>().Server);
-            Container.Register<IRequestResponse, RequestResponseManager>();
+            var serviceCollection = new ServiceCollection();
+            serviceCollection.AddSingleton<IConfiguration>((p) => GetConfiguration());
+            serviceCollection.AddSingleton<ISerializer, JsonSerializer>();
+            serviceCollection.AddSingleton<IEndpoint, Endpoint>();
+            serviceCollection.AddSingleton<IClientConnection, TcpClient>();
+            serviceCollection.AddTransient<WorkstationViewModel>();
+            serviceCollection.AddSingleton<IProvider<WorkstationViewModel>, WorkstationsProvider>();
+            serviceCollection.AddSingleton<IFactory<EventDTO, EventViewModel>, EventViewModelFactory>();
+            serviceCollection.AddSingleton<IFactory<EventRuleViewModel, EventRuleDTO>, EventRuleToDtoConverter>();
+            serviceCollection.AddSingleton<IFactory<EventRuleDTO, EventRuleViewModel>, EventRuleToViewModelConverter>();
+            serviceCollection.AddSingleton<IUpserter<WorkstationDTO, WorkstationViewModel>, WorkstationViewModelUpserter>();
+            serviceCollection.AddSingleton<IUpserter<ProcessInfoDTO, ProcessInfoViewModel>, ProcessInfoViewModelUpserter>();
+            serviceCollection.AddSingleton<IFactory<MapItemBase, MapItemDTO>, MapItemDTOFactory>();
+            serviceCollection.AddSingleton<IFactory<MapViewModel, MapDTO>, MapDTOFactory>();
+            serviceCollection.AddSingleton<IFactory<MapItemDTO, MapItemBase>, MapItemViewModelFactory>();
+            serviceCollection.AddSingleton<IFactory<MapDTO, MapViewModel>, MapViewModelFactory>();
+            serviceCollection.AddSingleton<IFactory<UserDTO, UserViewModel>, UserViewModelFactory>();
+            serviceCollection.AddSingleton<MainWindow>();
+            serviceCollection.AddSingleton<IDialogCoordinator>((p) => DialogCoordinator.Instance);
+            serviceCollection.AddSingleton<MainViewModel>();
+            serviceCollection.AddSingleton<IFactory<AdminPanelViewModel>, AdminPanelViewModelFactory>();
+            serviceCollection.AddSingleton<AdminPanelViewModel>();          
+            serviceCollection.AddAutoMapper(typeof(DataPacketsProfile));           
+            serviceCollection.AddSingleton<IDataTwoWay>((p) => p.GetService<IClientConnection>().Server);
+            serviceCollection.AddSingleton<IRequestResponse, RequestResponseManager>();
+
+            ServiceProvider = serviceCollection.BuildServiceProvider();
         }
 
         [STAThread]
         static void Main()
         {
-            var clientConnection = Container.GetInstance<IClientConnection>(); 
+            var clientConnection = ServiceProvider.GetService<IClientConnection>();
             clientConnection.Stopped += (s, ex) =>
             {
                 clientConnection.Start();
             };
-            clientConnection.Start();           
+            clientConnection.Start();
 
             var app = new App();
-            var mainWindow = Container.GetInstance<MainWindow>();
+            var mainWindow = ServiceProvider.GetService<MainWindow>();
             app.Run(mainWindow);
         }
 
@@ -85,7 +78,7 @@ namespace AdminClientApp.Entry
             var builder = new ConfigurationBuilder()
                 .SetBasePath(Directory.GetCurrentDirectory())
                 .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true);
-            return builder.Build(); 
+            return builder.Build();
         }
 
     }
