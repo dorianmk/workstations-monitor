@@ -5,6 +5,7 @@ using Common.DataTransfer.DataPackets.AdminClient;
 using Common.Interfaces;
 using DataTransfer.Interfaces;
 using MahApps.Metro.Controls.Dialogs;
+using System;
 
 namespace AdminClientApp.ViewModels.Startup
 {
@@ -52,7 +53,7 @@ namespace AdminClientApp.ViewModels.Startup
             Connection.Server.OnRead += (s, e) => OnDataRead(e);
         }
 
-        private void OnConnectionStopped(object sender, System.Exception e)
+        private void OnConnectionStopped(object sender, EventArgs e)
         {
             if (IsLoggedIn)
                 SelectedView = LoginViewModel;

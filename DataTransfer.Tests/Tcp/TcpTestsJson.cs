@@ -45,7 +45,7 @@ namespace DataTransfer.Tests.Tcp
             var bytes = serializer.GetBytes(data);
             Assert.IsNotNull(bytes);
             Assert.IsNotEmpty(bytes);
-            var deserialized = serializer.GetDatas(bytes).FirstOrDefault();
+            var deserialized = serializer.GetData(bytes);
             Assert.IsNotNull(deserialized);
             Assert.IsInstanceOf<TestPacket>(deserialized);
             Assert.AreEqual(data, deserialized);

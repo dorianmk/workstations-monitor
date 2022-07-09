@@ -7,7 +7,7 @@ namespace DataTransfer.Interfaces
     {
         IDataTwoWay Server { get; }
         event EventHandler Connected;
-        event EventHandler<Exception> Stopped;
+        event EventHandler Stopped;
         bool IsConnected { get; }
         Task Start();
     }
