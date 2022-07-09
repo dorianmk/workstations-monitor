@@ -61,9 +61,9 @@ namespace WorkstationService.Entry
             }
         }
 
-        private void ClientConnection_Stopped(object sender, Exception e)
+        private void ClientConnection_Stopped(object sender, EventArgs e)
         {
-            Logger.Do(e.Message);
+            Logger.Do(nameof(ClientConnection_Stopped));
             DataPacketsSender.Stop();
             ClientConnection.Start();
         }

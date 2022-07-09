@@ -1,18 +1,18 @@
-﻿using System.Configuration;
-using DataTransfer.Tcp;
+﻿using DataTransfer.Tcp;
 
 namespace WorkstationService.Entry.Settings
 {
     internal class TcpEndpoint : IEndpoint
     {
-        public string Hostname { get; }
+        private readonly AppSettings _appSettings;
 
-        public int Port { get; }
-
-        public TcpEndpoint()
+        public TcpEndpoint(AppSettings appSettings)
         {
-            Hostname = ConfigurationManager.AppSettings["hostname"].ToString();
-            Port = int.Parse(ConfigurationManager.AppSettings["port"].ToString());
+            _appSettings = appSettings;
         }
+
+        public string Hostname => _appSettings.Hostname;
+
+        public int Port => _appSettings.Port;
     }
 }

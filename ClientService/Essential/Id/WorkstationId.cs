@@ -1,4 +1,4 @@
-﻿using System.Configuration;
+﻿using WorkstationService.Entry.Settings;
 
 namespace WorkstationService.Essential.Id
 {
@@ -10,21 +10,18 @@ namespace WorkstationService.Essential.Id
 
     internal class WorkstationId : IWorkstationId
     {
-        private string Key { get; }
+        private readonly AppSettings _appSettings;
 
-        public string Get() => ConfigurationManager.AppSettings[Key]?.ToString();
+        public WorkstationId(AppSettings appSettings)
+        {
+            _appSettings = appSettings;
+        }
+
+        public string Get() => _appSettings.WorkstationId;
 
         public void Set(string id)
         {
-            Configuration config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
-            config.AppSettings.Settings.Remove(Key);
-            config.AppSettings.Settings.Add(Key, id);
-            config.Save();
-        }
-
-        public WorkstationId()
-        {
-            Key = "id";
+            _appSettings.WorkstationId = id;
         }
     }
 }
