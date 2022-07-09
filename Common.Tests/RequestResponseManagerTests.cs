@@ -13,7 +13,7 @@ namespace Common.Tests
     {
         private IClientConnection Client { get; set; }
         private IServerConnections Server { get; set; }
-        private readonly TimeSpan timeout = TimeSpan.FromSeconds(1);
+        private readonly TimeSpan timeout = TimeSpan.FromSeconds(5);
         private RequestResponseManager RequestResponseManager { get; set; }
         private bool sendBack = true;
 
