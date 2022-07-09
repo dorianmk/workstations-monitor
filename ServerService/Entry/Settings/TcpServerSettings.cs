@@ -1,5 +1,5 @@
-﻿using System.Configuration;
-using DataTransfer.Tcp;
+﻿using DataTransfer.Tcp;
+using Microsoft.Extensions.Configuration;
 
 namespace ServerService.Entry.Settings
 {
@@ -7,9 +7,9 @@ namespace ServerService.Entry.Settings
     {
         public int Port { get; }
 
-        public TcpServerSettings()
+        public TcpServerSettings(IConfiguration configuration)
         {
-            Port = int.Parse(ConfigurationManager.AppSettings["port"].ToString());
+            Port = int.Parse(configuration["port"].ToString());
         }
     }
 }

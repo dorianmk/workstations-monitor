@@ -1,4 +1,3 @@
-using AutoMapper;
 using Common.DataTransfer.DataPackets.AdminClient;
 using Common.DataTransfer.DataPackets.Workstation;
 using Common.Interfaces;
@@ -14,6 +13,8 @@ using Database.MongoDB;
 using DataTransfer.Interfaces;
 using DataTransfer.Tcp;
 using DataTransfer.Tcp.Serializers;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 using ServerService.Common.Hashing;
 using ServerService.Entry.Components;
 using ServerService.Entry.Service;
@@ -22,57 +23,67 @@ using ServerService.Essential.AdminClient;
 using ServerService.Essential.AdminClient.Events;
 using ServerService.Essential.AdminClient.Events.EventsOriginateRules;
 using ServerService.Essential.Workstation;
-using SimpleInjector;
+using System;
 using System.Collections.Generic;
+using System.IO;
 using System.ServiceProcess;
 
 namespace ServerService.Entry
 {
     static class Program
     {
-        static Container Container { get; }
+
+        private static IServiceProvider ServiceProvider { get; }
 
         static Program()
         {
-            Container = new Container();
-            Container.Options.DefaultLifestyle = Lifestyle.Singleton;
-            Container.Register<IWorker, MainWorker>();
-            Container.Register<IWorkstationsManager, WorkstationsManager>();
-            Container.Register<IAdminClients, AdminClients>();
-            Container.Register<IDatabaseSettings, DatabaseSettings>();
-            Container.Register<IDatabase, MongoDatabase>();
-            Container.Register<ISerializer, JsonSerializer>();
-            Container.Register<IServerSettings, TcpServerSettings>();
-            Container.Register<IServerConnections, TcpServer>();
-            Container.Register<IHashing, BCryptHashing>();
-            Container.Register<IFactory<ServiceBase>, ServiceFactory>();
-            Container.Register<IServiceRunner, Runner>();
-            Container.Register<IFactory<IWorkstation, IWorkstationCache>, WorkstationCacheFactory>();
-            Container.Register<IConfigurationProvider>(() => new MapperConfiguration(cfg => cfg.AddProfile<DataPacketsProfile>()));
-            Container.Register(() => Container.GetInstance<IConfigurationProvider>().CreateMapper());
-            Container.Register<IFactory<IWorkstationCache, WorkstationDTO>, WorkstationDTOFactory>();
-            Container.Register<ILoginRequestValidator, LoginRequestValidator>();
-            Container.Register(() => Container.GetInstance<IDatabase>().Maps);
-            Container.Register<IFactory<MapItemDTO, IMapItem>, MapItemsDtoToEntityConverter>();
-            Container.Register<IFactory<MapDTO, IMap>, MapsDtoToEntityConverter>();
-            Container.Register<IFactory<IMapItem, MapItemDTO>, MapItemsEntityToDtoConverter>();
-            Container.Register<IFactory<IMap, MapDTO>, MapsEntityToDtoConverter>();
-            Container.Register(() => Container.GetInstance<IDatabase>().Users);
-            Container.Register<IFactory<IUser, UserDTO>, UsersEntityToDtoConverter>();
-            Container.Register(() => Container.GetInstance<IDatabase>().Events);
-            Container.Register<IFactory<IEvent, EventDTO>, EventEntityToDtoConverter>();
-            Container.Register(() => Container.GetInstance<IDatabase>().EventRules);
-            Container.Register<IFactory<EventRuleDTO, IEventRule>, EventRuleDtoToEntityConverter>();
-            Container.Register<IEventsOriginator<ProcessesEventOriginateRule,ProcessesInfoPacket>, EventsOriginator<ProcessesEventOriginateRule,ProcessesInfoPacket>>();
-            Container.Register<IFactory<List<ProcessesEventOriginateRule>>, ProcessesEventOriginateRulesFactory>();
-            Container.Register<IFactory<ProcessesEventOriginateRule, EventRuleDTO>, EventRuleToDtoConverter>();
-            Container.Verify();
+            var serviceCollection = new ServiceCollection();
+            serviceCollection.AddSingleton<IConfiguration>((p) => GetConfiguration());
+            serviceCollection.AddSingleton<IWorker, MainWorker>();
+            serviceCollection.AddSingleton<IWorkstationsManager, WorkstationsManager>();
+            serviceCollection.AddSingleton<IAdminClients, AdminClients>();
+            serviceCollection.AddSingleton<IDatabaseSettings, DatabaseSettings>();
+            serviceCollection.AddSingleton<IDatabase, MongoDatabase>();
+            serviceCollection.AddSingleton<ISerializer, JsonSerializer>();
+            serviceCollection.AddSingleton<IServerSettings, TcpServerSettings>();
+            serviceCollection.AddSingleton<IServerConnections, TcpServer>();
+            serviceCollection.AddSingleton<IHashing, BCryptHashing>();
+            serviceCollection.AddSingleton<IFactory<ServiceBase>, ServiceFactory>();
+            serviceCollection.AddSingleton<IServiceRunner, Runner>();
+            serviceCollection.AddSingleton<IFactory<IWorkstation, IWorkstationCache>, WorkstationCacheFactory>();       
+            serviceCollection.AddSingleton<IFactory<IWorkstationCache, WorkstationDTO>, WorkstationDTOFactory>();
+            serviceCollection.AddSingleton<ILoginRequestValidator, LoginRequestValidator>();
+            serviceCollection.AddSingleton((p) => p.GetService<IDatabase>().Maps);
+            serviceCollection.AddSingleton<IFactory<MapItemDTO, IMapItem>, MapItemsDtoToEntityConverter>();
+            serviceCollection.AddSingleton<IFactory<MapDTO, IMap>, MapsDtoToEntityConverter>();
+            serviceCollection.AddSingleton<IFactory<IMapItem, MapItemDTO>, MapItemsEntityToDtoConverter>();
+            serviceCollection.AddSingleton<IFactory<IMap, MapDTO>, MapsEntityToDtoConverter>();
+            serviceCollection.AddSingleton((p) => p.GetService<IDatabase>().Users);
+            serviceCollection.AddSingleton<IFactory<IUser, UserDTO>, UsersEntityToDtoConverter>();
+            serviceCollection.AddSingleton((p) => p.GetService<IDatabase>().Events);
+            serviceCollection.AddSingleton<IFactory<IEvent, EventDTO>, EventEntityToDtoConverter>();
+            serviceCollection.AddSingleton((p) => p.GetService<IDatabase>().EventRules);
+            serviceCollection.AddAutoMapper(typeof(DataPacketsProfile));
+            serviceCollection.AddSingleton<IFactory<EventRuleDTO, IEventRule>, EventRuleDtoToEntityConverter>();
+            serviceCollection.AddSingleton<IEventsOriginator<ProcessesEventOriginateRule,ProcessesInfoPacket>, EventsOriginator<ProcessesEventOriginateRule,ProcessesInfoPacket>>();
+            serviceCollection.AddSingleton<IFactory<List<ProcessesEventOriginateRule>>, ProcessesEventOriginateRulesFactory>();
+            serviceCollection.AddSingleton<IFactory<ProcessesEventOriginateRule, EventRuleDTO>, EventRuleToDtoConverter>();
+
+            ServiceProvider = serviceCollection.BuildServiceProvider();
         }
 
         static void Main(string[] args)
         {
-            var runner = Container.GetInstance<IServiceRunner>();
+            var runner = ServiceProvider.GetService<IServiceRunner>();
             runner.Run();
+        }
+
+        private static IConfiguration GetConfiguration()
+        {
+            var builder = new ConfigurationBuilder()
+                .SetBasePath(Directory.GetCurrentDirectory())
+                .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true);
+            return builder.Build();
         }
     }
 }

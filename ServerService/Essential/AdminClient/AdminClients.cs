@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Common.DataTransfer.DataPackets.AdminClient;
 using Common.DataTransfer.DataPackets.Workstation;
@@ -185,7 +186,7 @@ namespace ServerService.Essential.AdminClient
             }
         }
 
-        private void Client_Stopped(object sender, System.Exception e)
+        private void Client_Stopped(object sender, EventArgs e)
         {
             var client = sender as IConnection;
             ConnectedAdmins.Remove(client);

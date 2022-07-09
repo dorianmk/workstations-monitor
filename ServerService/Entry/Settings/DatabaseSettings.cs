@@ -1,5 +1,5 @@
-﻿using System.Configuration;
-using Database.MongoDB;
+﻿using Database.MongoDB;
+using Microsoft.Extensions.Configuration;
 
 namespace ServerService.Entry.Settings
 {
@@ -7,9 +7,9 @@ namespace ServerService.Entry.Settings
     {
         public string ConnectionString { get; }
 
-        public DatabaseSettings()
+        public DatabaseSettings(IConfiguration configuration)
         {
-            ConnectionString = ConfigurationManager.ConnectionStrings["local"].ConnectionString;
+            ConnectionString = configuration.GetConnectionString("local");
         }
     }
 }
