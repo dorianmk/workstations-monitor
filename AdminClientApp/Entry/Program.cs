@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Threading.Tasks;
 using AdminClientApp.Entry.Components;
 using AdminClientApp.Entry.Settings;
 using AdminClientApp.ViewModels.Essential;
@@ -50,8 +51,8 @@ namespace AdminClientApp.Entry
             serviceCollection.AddSingleton<IDialogCoordinator>((p) => DialogCoordinator.Instance);
             serviceCollection.AddSingleton<MainViewModel>();
             serviceCollection.AddSingleton<IFactory<AdminPanelViewModel>, AdminPanelViewModelFactory>();
-            serviceCollection.AddSingleton<AdminPanelViewModel>();          
-            serviceCollection.AddAutoMapper(typeof(DataPacketsProfile));           
+            serviceCollection.AddSingleton<AdminPanelViewModel>();
+            serviceCollection.AddAutoMapper(typeof(DataPacketsProfile));
             serviceCollection.AddSingleton<IDataTwoWay>((p) => p.GetService<IClientConnection>().Server);
             serviceCollection.AddSingleton<IRequestResponse, RequestResponseManager>();
 
@@ -66,11 +67,21 @@ namespace AdminClientApp.Entry
             {
                 clientConnection.Start();
             };
-            clientConnection.Start();
+
+            clientConnection.Start().ContinueWith(RetryConnection, clientConnection);
 
             var app = new App();
             var mainWindow = ServiceProvider.GetService<MainWindow>();
             app.Run(mainWindow);
+        }
+
+        private static void RetryConnection(Task<bool> connectionTask, object state)
+        {
+            if (!connectionTask.Result)
+            {
+                var clientConnection = state as IClientConnection;
+                clientConnection.Start().ContinueWith(RetryConnection, clientConnection);
+            }
         }
 
         private static IConfiguration GetConfiguration()

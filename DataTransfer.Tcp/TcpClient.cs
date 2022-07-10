@@ -34,9 +34,9 @@ namespace DataTransfer.Tcp
 
         public IDataTwoWay Server { get; private set; }
 
-        public Task Start()
+        public async Task<bool> Start()
         {
-            return _tcpNETClient.ConnectAsync();
+            return await _tcpNETClient.ConnectAsync();
         }
 
         private void OnConnectionEvent(object sender, TcpConnectionClientEventArgs args)
