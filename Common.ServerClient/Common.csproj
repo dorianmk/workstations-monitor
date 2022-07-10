@@ -1,13 +1,9 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
-    <OutputType>Library</OutputType>
-    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <TargetFramework>net6.0</TargetFramework>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Update="Service\ServiceWithWorker.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Update="Service\ServiceWithWorker.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DataTransfer.Interfaces\DataTransfer.Interfaces.csproj" />

@@ -9,6 +9,6 @@ namespace DataTransfer.Interfaces
         event EventHandler Connected;
         event EventHandler Stopped;
         bool IsConnected { get; }
-        Task Start();
+        Task<bool> Start();
     }
 }
