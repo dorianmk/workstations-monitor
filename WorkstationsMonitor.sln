@@ -1,39 +1,44 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.29920.165
+# Visual Studio Version 17
+VisualStudioVersion = 17.2.32616.157
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WorkstationService", "ClientService\WorkstationService.csproj", "{FFB291D4-DC10-4438-BCBB-C001E2F19E07}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WorkstationService", "ClientService\WorkstationService.csproj", "{FFB291D4-DC10-4438-BCBB-C001E2F19E07}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServerService", "ServerService\ServerService.csproj", "{F2D67E65-11F1-4541-B2E7-21D8832AC2A1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ServerService", "ServerService\ServerService.csproj", "{F2D67E65-11F1-4541-B2E7-21D8832AC2A1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataTransfer.Interfaces", "DataTransfer.Interfaces\DataTransfer.Interfaces.csproj", "{396D3B0B-1639-4608-AD33-9145D17CC6A9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataTransfer.Interfaces", "DataTransfer.Interfaces\DataTransfer.Interfaces.csproj", "{396D3B0B-1639-4608-AD33-9145D17CC6A9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataTransfer.Tcp", "DataTransfer.Tcp\DataTransfer.Tcp.csproj", "{60927DB4-116F-4E3C-B3B7-3C979F6FD38C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataTransfer.Tcp", "DataTransfer.Tcp\DataTransfer.Tcp.csproj", "{60927DB4-116F-4E3C-B3B7-3C979F6FD38C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataTransfer.Tests", "DataTransfer.Tests\DataTransfer.Tests.csproj", "{403C6469-8960-4812-9607-61C2883017A1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataTransfer.Tests", "DataTransfer.Tests\DataTransfer.Tests.csproj", "{403C6469-8960-4812-9607-61C2883017A1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Common", "Common.ServerClient\Common.csproj", "{CBBCDF80-4293-4FFC-B964-3FECE91B5728}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Common", "Common.ServerClient\Common.csproj", "{CBBCDF80-4293-4FFC-B964-3FECE91B5728}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Diagnostics", "Diagnostics\Diagnostics.csproj", "{14CAC1FE-9A34-47ED-B0FF-A8F7E0E5A631}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Diagnostics", "Diagnostics\Diagnostics.csproj", "{14CAC1FE-9A34-47ED-B0FF-A8F7E0E5A631}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Diagnostics.Tests", "Diagnostics.Tests\Diagnostics.Tests.csproj", "{EB399787-4D32-4C8A-9E79-251BF52B944C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Diagnostics.Tests", "Diagnostics.Tests\Diagnostics.Tests.csproj", "{EB399787-4D32-4C8A-9E79-251BF52B944C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AdminClientApp", "AdminClientApp\AdminClientApp.csproj", "{73CD7655-AD26-426C-9783-BC92A1445742}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AdminClientApp", "AdminClientApp\AdminClientApp.csproj", "{73CD7655-AD26-426C-9783-BC92A1445742}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Database.Interfaces", "Database.Interfaces\Database.Interfaces.csproj", "{677083DC-758F-481A-A726-753C87F12DEA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Database.Interfaces", "Database.Interfaces\Database.Interfaces.csproj", "{677083DC-758F-481A-A726-753C87F12DEA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Database.MongoDB", "Database.MongoDB\Database.MongoDB.csproj", "{7C7425FB-840E-4661-95A3-6828E7A7B062}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Database.MongoDB", "Database.MongoDB\Database.MongoDB.csproj", "{7C7425FB-840E-4661-95A3-6828E7A7B062}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Database.Tests", "Database.Tests\Database.Tests.csproj", "{A219E12B-5140-4E98-A238-BF5FC0783783}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Database.Tests", "Database.Tests\Database.Tests.csproj", "{A219E12B-5140-4E98-A238-BF5FC0783783}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{157DD008-4E39-40B4-A5ED-000E0E144B04}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Common.Tests", "Common.Tests\Common.Tests.csproj", "{F2DAAE3F-8EE0-403D-9E41-0C699315D595}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Common.Tests", "Common.Tests\Common.Tests.csproj", "{F2DAAE3F-8EE0-403D-9E41-0C699315D595}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Interfaces", "Interfaces", "{8E3A3B42-343D-460C-88C5-4606B58F051F}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Implementations", "Implementations", "{DA296575-FD27-475F-B142-781B5082988B}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{454B5ADC-3884-4265-8288-54A9BCE715E2}"
+	ProjectSection(SolutionItems) = preProject
+		README.md = README.md
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
