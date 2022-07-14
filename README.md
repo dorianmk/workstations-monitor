@@ -16,6 +16,20 @@ It had been created due to thesis (for engineer's degree) which is titled 'A sys
 - **desktop app** logged into server visualizes gathered informations in a pleasant way. 
 
 ## Features
+- Current running processes
+![Current running processes state](Docs/interface_processes.png)
+
+- Total performance
+![Total performance](Docs/interface_performance.png)
+
+- System information
+![System information](Docs/interface_systeminfo.png)
+
+- Events
+![Events](Docs/interface_events.png)
+
+- Maps
+![Maps](Docs/interface_maps.png)
 
 ## Technologies
 - C#
