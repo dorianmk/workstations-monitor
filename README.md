@@ -32,9 +32,12 @@ It had been created due to thesis (for engineer's degree) which is titled 'A sys
 ![Maps](Docs/interface_maps.png)
 
 ## Technologies
-- C#
+The project was originally written in .NET Framework 4.6.1. It's 2022 already so I took the trouble to upgrade it to **.NET 6.0**. Other technologies worth mentioning are listed below:
 - MongoDB
-- ..
+- AutoMapper
+- WPF
+- Dependency injection
+- NUnit
 
 ## Architecture
 
