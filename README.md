@@ -46,7 +46,21 @@ The diagram of components and their dependencies is shown below
 ![Diagram of components](Docs/architecture.png)
 
 ## Launch
-How to run a project? Does a project has minimum hardware requirements?
+
+In order to test app by yourself you need to start
+- WorkstationService (requires administrator rights and at least Windows 10)
+- ServerService
+- AdminClientApp (requires at least Windows 10)
+- a MongoDB instance
+
+The easiest way to achieve this is
+1. run Microsoft Visual Studio 2022 as administrator
+2. open the *WorkstationsMonitor.sln* solution
+3. **Rebuild solution**
+4. set *ServerService*, *WorkstationService* and *AdminClientApp* as startup projects
+5. start a MongoDB instance using docker: `docker run --name mongodb -d -p 27017:27017 mongo`
+6. **Start Debugging**
+7. log in with default login and password (root/pass)
 
 ## Summary
 what did I learn, pros and cons
