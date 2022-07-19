@@ -62,4 +62,4 @@ The easiest way to achieve this is
 
 ## Summary
 I was following so called [Clean Architecture](https://blog.cleancoder.com/uncle-bob/2012/08/13/the-clean-architecture.html) guidelines in order to achieve the separation of concerns. That's why the **Database.MongoDB** and **DataTransfer.Tcp** projects are just implementations of more generic  **Database.Interfaces** and **DataTransfer.Interfaces** projects. It really paid of during recent upgrade to .NET 6.0 when I had to replace deprecated library for Tcp. It was also a good idea to use dependency injection and write unit tests for crucial parts of application - such as database, tcp transfer and retrieving processes data. I was able to detect and fix bugs as early as possible.\
-I had biggest problems with misuse the **AutoMapper** package - I shouldn't try to convert my DTO objects into complex viewmodel types.
+I had biggest problems with misuse of the **AutoMapper** package - I shouldn't try to convert my DTO objects into complex viewmodel types.
