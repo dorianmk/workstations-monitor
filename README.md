@@ -3,7 +3,7 @@ Gathers and visualizes data from workstations in real time. App created with C#,
 
 ## Table of Contents
 - [Introduction](#introduction)
-- [Features](#features)
+- [Scope of functionalities](#scope-of-functionalities)
 - [Technologies](#technologies)
 - [Architecture](#architecture)
 - [Launch](#launch)
@@ -15,7 +15,7 @@ It had been created due to thesis (for engineer's degree) which is titled 'A sys
 - **server** persists and processes that data.
 - **desktop app** logged into server visualizes gathered informations in a pleasant way. 
 
-## Features
+## Scope of functionalities
 - Current running processes
 ![Current running processes state](Docs/interface_processes.png)
 
